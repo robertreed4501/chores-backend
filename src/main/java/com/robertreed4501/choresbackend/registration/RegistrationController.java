@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class RegistrationController {
 
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
 
     @PostMapping
     @CrossOrigin
     public String register(@RequestBody RegistrationRequest request) {
-        return RegistrationService.register(request);
+        return registrationService.register(request);
+    }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return registrationService.confirmToken(token);
     }
 
 
